@@ -1,8 +1,6 @@
 package edu.colostate.csedu.db
 
-import edu.colostate.csedu.db.entity.Assessment
-import edu.colostate.csedu.db.entity.Click
-import edu.colostate.csedu.db.entity.Resource
+import edu.colostate.csedu.db.entity.Outcome
 import edu.colostate.csedu.db.entity.Student
 
 
@@ -17,17 +15,43 @@ import edu.colostate.csedu.db.entity.Student
  * @version 1.0
  */
 interface Database {
-
-    fun getResource(id:String) : Resource
-    fun getAllResources() : List<Resource>
-
-    fun getStudent(courseId:String, studentId:String) : Student
-    fun getAllStudents(courseId: String) : List<Student>
-    fun addClickToStudent(student: Student, click: Click) : String
-    fun addStudent(courseId: String, student: Student)
+    var students  : Students
+    var resources : Resources
+    var outcomes  : Outcomes
+    var courses : Courses
 
 
-    fun getAssessment(student: Student, assessmentId: String) : Assessment
-    fun addAssessment(student: Student, assessment: Assessment)
+}
+
+interface Mapable {
+    fun toMap(): Map<String, Any>
+}
+
+interface Courses {
+    fun getStudents(courseId:String) : List<Student>
+    fun addStudents(ids:List<String>)
+
+    //fun getResources(courseId:String) : List<Resource>
+    fun addResources(ids:List<String>)
+
+}
+
+interface Students {
+    fun get(studentId:String) : Student
+    fun add()
+    fun getAll() : List<Student>
+    fun set(id:String, student:Student)
+
+}
+
+
+
+interface Resources {
+   // fun getResource(id:String) : Resource
+ //   fun getAllResources() : List<Resource>
+}
+
+interface Outcomes {
+    fun getAll() : List<Outcome>
 
 }

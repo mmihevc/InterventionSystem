@@ -1,6 +1,6 @@
 package edu.colostate.csedu.db.entity
 
-import edu.colostate.csedu.DB
+import edu.colostate.csedu.db.Mapable
 import kotlinx.serialization.Serializable
 
 
@@ -13,12 +13,30 @@ import kotlinx.serialization.Serializable
  *         lionelle@colostate.edu <br>
  *         Computer Science Department <br>
  *         Colorado State University
- * @version 1.0
+ * @version 202010
  */
 @Serializable
 data class Student(var id: String ="", var canvasId:String = "", var csuid:String = "",
-                   var email:String="", var fname: String="", var lname:String="") {
+                   var email:String="", var fname: String="", var lname:String="") : Mapable {
 
+    val outcomeMapping = mutableMapOf<String, MutableList<OutcomeResult>>()
+
+    fun addToOutcomeResult(result: OutcomeResult) {
+        outcomeMapping[result.outcomeId]?.plusAssign(result)
+    }
+
+
+
+    override fun toMap(): Map<String, Any> = mutableMapOf(
+                "fname" to fname,
+                "lname" to lname,
+                "canvasId" to canvasId,
+                "id" to id,
+                "email" to email,
+                "csuid" to csuid,
+                "outcomeMappings" to outcomeMapping)
+
+/*
     @Transient
     var courseId : String = ""
 
@@ -64,5 +82,6 @@ data class Click(var resource: Resource) {
     fun toMap() : Map<String, Any> {
         return resource.toMap()
     }
+*/
 
 }

@@ -21,7 +21,7 @@ object ClickThroughController {
 
     fun redirectRoute(courseId : String, clientId : String, resourceId : String) : String {
 //Test line: http://localhost:8080/cs150Fall19/client/1/resource/geeks-for-geeks-variables-lv1
-
+/*
         val resource = DB.getResource(resourceId)
 
         val student = DB.getStudent(courseId, clientId)
@@ -29,7 +29,8 @@ object ClickThroughController {
         student.addClick(resource)
 
         return resource.url
-
+*/
+        return ""
     }
 
 

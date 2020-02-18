@@ -8,15 +8,10 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import com.google.firebase.cloud.FirestoreClient
 import edu.colostate.csedu.SETTINGS
-
-import edu.colostate.csedu.db.Database
+import edu.colostate.csedu.db.*
 
 
 import org.slf4j.LoggerFactory
-import edu.colostate.csedu.db.entity.Assessment
-import edu.colostate.csedu.db.entity.Click
-import edu.colostate.csedu.db.entity.Resource
-import edu.colostate.csedu.db.entity.Student
 
 
 private val logger = LoggerFactory.getLogger(Firebase::class.java)
@@ -32,6 +27,15 @@ private val logger = LoggerFactory.getLogger(Firebase::class.java)
  * @version 1.0
  */
 class Firebase() : Database {
+
+    var db : Firestore
+    override lateinit var students: Students
+    override lateinit var resources: Resources
+    override lateinit var outcomes: Outcomes
+    override lateinit var courses: Courses
+
+
+    /*
     override fun addAssessment(student: Student, assessment: Assessment) {
         db.collection(assessmentListPath(student.courseId, student.id)).document(assessment.id).set(assessment.toMap()).get()
     }
@@ -95,45 +99,38 @@ class Firebase() : Database {
         obj?.id = resource.id // since toObject doesn't store the id.
         return obj!!
     }
-
+*/
 
     companion object {
         private const val RESOURCES_TABLE_NAME = "resources"
         private const val COURSES_TABLE_NAME = "courses"
-        private const val STUDENTS_TABLE_NAME = "students"
         private const val CLICKS_TABLE_NAME = "clicks"
         private const val ASSESSMENTS_TABLE_NAME = "assessments"
 
         fun resourcesListPath()  = "$RESOURCES_TABLE_NAME"
 
-        fun studentListPath(courseId: String) = "$COURSES_TABLE_NAME/$courseId/$STUDENTS_TABLE_NAME"
+       // fun studentListPath(courseId: String) = "$COURSES_TABLE_NAME/$courseId/$STUDENTS_TABLE_NAME"
 
-        fun studentDocPath(courseId: String, studentId: String) = studentListPath(courseId) + "/$studentId"
+        //fun studentDocPath(courseId: String, studentId: String) = studentListPath(courseId) + "/$studentId"
 
-        fun assessmentListPath(courseId: String, studentId: String) = studentDocPath(courseId, studentId) + "/$ASSESSMENTS_TABLE_NAME"
+//        fun assessmentListPath(courseId: String, studentId: String) = studentDocPath(courseId, studentId) + "/$ASSESSMENTS_TABLE_NAME"
 
-        fun assessmentDocPath(courseId: String, studentId: String, assessmentId: String) = assessmentListPath(courseId, studentId) + "/$assessmentId"
+  //      fun assessmentDocPath(courseId: String, studentId: String, assessmentId: String) = assessmentListPath(courseId, studentId) + "/$assessmentId"
 
     }
 
-    //TODO get rid of this method, and use the getDocument instead
-    @Deprecated("Need to update other methods to use getDocument instead")
-    private fun queryItemById(collection: String, itemId: String) : DocumentSnapshot  {
-        val future = db.collection(collection).document(itemId).get()
-        val document = future.get()
-        if(document.exists()) {
-            return document
-        }
-        throw Exception("Can't find the document: $itemId in collection $collection")
-    }
 
-    private fun getCollection(collection: String) : List<QueryDocumentSnapshot> {
+    internal fun getCollection(collection: String) : List<QueryDocumentSnapshot> {
         val query = db.collection(collection).get()
         val querySnapshot = query.get()
         return querySnapshot.documents
     }
 
-    private fun getDocument(documentId : String) : DocumentSnapshot {
+    internal fun setDocument(collection: String, documentId: String, map : Map<String, Any>)  {
+        db.collection(collection).document(documentId).set(map).get()
+    }
+
+    internal fun getDocument(documentId : String) : DocumentSnapshot {
         val future = db.document(documentId).get()
         val document = future.get()
         if (document.exists()) {
@@ -142,7 +139,7 @@ class Firebase() : Database {
         throw Exception("Can't find the document: $documentId")
     }
 
-    var db : Firestore
+
     init {
         val serviceAccount = this.javaClass.getResourceAsStream(SETTINGS.FIRE_BASE_CREDENTIALS)
         val credentials = GoogleCredentials.fromStream(serviceAccount)
@@ -151,7 +148,13 @@ class Firebase() : Database {
                 .build()
         FirebaseApp.initializeApp(options)
         this.db = FirestoreClient.getFirestore()
+
+        this.students = StudentsFb(this)
+        this.outcomes = OutcomesFb(this)
+
     }
+
+
 
 
 }

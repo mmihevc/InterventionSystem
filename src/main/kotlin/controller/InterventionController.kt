@@ -19,6 +19,7 @@ private val logger = LoggerFactory.getLogger(InterventionController::class.java)
  * @version 1.0
  */
 object InterventionController {
+    /*
     fun massEmail(courseId : String, assessmentId: String, templateId: String): String { //http://localhost:8080/cs150Fall19/test-unit/email/unit1EmailBody
         val ls = DB.getAllStudents(courseId)
         val templator = EmailTemplates()
@@ -87,5 +88,5 @@ object InterventionController {
             is UnknownAssessment -> return false
             else -> return false
         }
-    }
+    }*/
 }

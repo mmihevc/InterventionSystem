@@ -66,7 +66,8 @@ fun Application.main() {
             val response = if (assessmentId.isEmpty() || courseId.isEmpty() || templateId.isEmpty()) {
                 "Invalid Info"
             } else {
-                InterventionController.massEmail(courseId, assessmentId, templateId)
+       //         InterventionController.massEmail(courseId, assessmentId, templateId)
+                "hello"
             }
             call.respondText(response, contentType = ContentType.Application.Json)
         }
