@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory
 
 
 private val logger = LoggerFactory.getLogger(Firebase::class.java)
-//TODO make it so the get resource takes in the full path to the resource (e.g. /courses/cs150Fall19/students/1) - and then build methods to build that list - that way only one method for grabbing from the DB.
 /**
  *
  *

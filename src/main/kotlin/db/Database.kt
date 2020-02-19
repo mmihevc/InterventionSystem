@@ -53,5 +53,6 @@ interface Resources {
 
 interface Outcomes {
     fun getAll() : List<Outcome>
+    fun set(outcome:Outcome)
 
 }

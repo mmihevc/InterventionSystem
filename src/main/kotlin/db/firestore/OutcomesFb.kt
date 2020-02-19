@@ -6,6 +6,10 @@ import edu.colostate.csedu.db.entity.Student
 
 class OutcomesFb(var db: Firebase) : Outcomes{
 
+    override fun set(outcome: Outcome) {
+        db.setDocument(OUTCOMES_TABLE_NAME, outcome.id, outcome.toMap())
+    }
+
     override fun getAll(): List<Outcome> {
         val collection = db.getCollection(OUTCOMES_TABLE_NAME)
         val list = mutableListOf<Outcome>()

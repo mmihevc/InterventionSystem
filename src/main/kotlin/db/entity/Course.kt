@@ -1,7 +1,8 @@
 package edu.colostate.csedu.db.entity
 
 import edu.colostate.csedu.db.Mapable
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.*
+import kotlinx.serialization.internal.StringDescriptor
 
 /**
  * Basic course object in the database
@@ -40,14 +41,16 @@ data class Campaign(val name:String = "", val date:String = "") {
 
 }
 
-@Serializable
-enum class StudentStates {
-    ACTIVE, INACTIVE
+object StudentStates {
+    public const val ACTIVE = "ACTIVE"
+    public const val INACTIVE = "INACTIVE"
 }
+
+
 
 @Serializable
 data class StudentInCourse(val studentId:String ="",
-                           var status:StudentStates = StudentStates.ACTIVE) // not much for now, but room for later
+                           var status:String = StudentStates.ACTIVE) // not much for now, but room for later
 
 
 /**
@@ -66,7 +69,7 @@ data class Click(val id:String = "", val resourceId:String ="", val studentId:St
 
     override fun toMap(): Map<String, Any> = mapOf(
             "resourceId" to resourceId,
-            "studenId" to studentId,
+            "studentId" to studentId,
             "accessed" to accessed
             )
 }

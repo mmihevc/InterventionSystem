@@ -19,22 +19,43 @@ import kotlinx.serialization.Serializable
 data class Student(var id: String ="", var canvasId:String = "", var csuid:String = "",
                    var email:String="", var fname: String="", var lname:String="") : Mapable {
 
-    val outcomeMapping = mutableMapOf<String, MutableList<OutcomeResult>>()
+    val outcomeMapping = mutableMapOf<String, StudentOutcome>()
 
     fun addToOutcomeResult(result: OutcomeResult) {
-        outcomeMapping[result.outcomeId]?.plusAssign(result)
+        outcomeMapping[result.outcomeId]?.history?.add(result)
     }
 
-
-
-    override fun toMap(): Map<String, Any> = mutableMapOf(
+    override fun toMap(): Map<String, Any> {
+        var map : MutableMap<String, Any>  = mutableMapOf(
                 "fname" to fname,
                 "lname" to lname,
                 "canvasId" to canvasId,
                 "id" to id,
                 "email" to email,
-                "csuid" to csuid,
-                "outcomeMappings" to outcomeMapping)
+                "csuid" to csuid)
+        val outcomes = mutableMapOf<String, Any>()
+        for(om in outcomeMapping) {
+            outcomes[om.key] = om.value.toMap()
+        }
+        map["outcomeMapping"] = outcomes
+        return map
+    }
+}
+
+@Serializable
+data class StudentOutcome(var score: Double = 0.0, var mastery: Double = 4.0,
+                          var calculationMethod: String = OutcomeCalculationMethods.LATEST,
+                          var calculationInt: Int = 0) : Mapable {
+    val history = mutableListOf<OutcomeResult>()
+
+    override fun toMap() : Map<String, Any> = mutableMapOf(
+        "score" to score,
+        "mastery" to mastery,
+        "calculationMethod" to calculationMethod,
+        "calculationInt" to calculationInt,
+        "history" to history)
+
+}
 
 /*
     @Transient
@@ -84,4 +105,3 @@ data class Click(var resource: Resource) {
     }
 */
 
-}
