@@ -44,16 +44,6 @@ class Firebase() : Database {
     }
 
 
-    override fun getAllResources(): List<Resource> {
-        val collection = getCollection(resourcesListPath())
-        val list = mutableListOf<Resource>()
-        for(document in collection) {
-            list += document.toObject(Resource::class.java)
-            list.last().id = document.id
-        }
-        return list
-    }
-
     override fun getAssessment(student: Student, assessmentId: String): Assessment {
         val document = getDocument(assessmentDocPath(student.courseId, student.id, assessmentId))
         return Assessment.builder(document.id, document.data)
@@ -92,21 +82,14 @@ class Firebase() : Database {
         throw Exception("Can't find the student: $studentId in course $courseId")
     }
 
-    override fun getResource(id: String): Resource {
-        val resource = queryItemById(RESOURCES_TABLE_NAME, id)
-        val obj = resource.toObject(Resource::class.java)
-        obj?.id = resource.id // since toObject doesn't store the id.
-        return obj!!
-    }
 */
 
     companion object {
-        private const val RESOURCES_TABLE_NAME = "resources"
         private const val COURSES_TABLE_NAME = "courses"
         private const val CLICKS_TABLE_NAME = "clicks"
         private const val ASSESSMENTS_TABLE_NAME = "assessments"
 
-        fun resourcesListPath()  = "$RESOURCES_TABLE_NAME"
+
 
        // fun studentListPath(courseId: String) = "$COURSES_TABLE_NAME/$courseId/$STUDENTS_TABLE_NAME"
 
@@ -150,6 +133,7 @@ class Firebase() : Database {
 
         this.students = StudentsFb(this)
         this.outcomes = OutcomesFb(this)
+        this.resources = ResourcesFb(this)
 
     }
 

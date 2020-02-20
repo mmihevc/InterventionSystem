@@ -1,15 +1,22 @@
 package edu.colostate.csedu.db.entity
+import edu.colostate.csedu.db.Mapable
 import kotlinx.serialization.Serializable
 
 
-//
-//import edu.colostate.csedu.SETTINGS
 
 
 @Serializable
 data class Resource(var id: String ="", var name : String ="", var topic : String="",
                     var url: String="", var depth:Int =0,
-                    var mediaType : String = "static")
+                    var mediaType : String = "static") : Mapable {
+
+    override fun toMap(): Map<String, Any> = mapOf(
+            "name" to name,
+            "topic" to topic,
+            "url" to url,
+            "depth" to depth,
+            "mediaType" to mediaType)
+}
 
 //
 //

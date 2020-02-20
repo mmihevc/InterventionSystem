@@ -13,17 +13,11 @@ fun main(args: Array<String>) {
     val outcomes = DB.outcomes.getAll()
     println(outcomes)
 
+    val resources = DB.resources.getAll()
+
+    println(resources)
 
 
-
-    for(student in list) {
-        for(outcome in outcomes) {
-            student.outcomeMapping[outcome.id] = StudentOutcome(mastery = outcome.mastery)
-            DB.students.set(student.id, student)
-        }
-
-        print(student)
-    }
 
 
 }

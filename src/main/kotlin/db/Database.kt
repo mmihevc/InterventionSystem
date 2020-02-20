@@ -1,6 +1,7 @@
 package edu.colostate.csedu.db
 
 import edu.colostate.csedu.db.entity.Outcome
+import edu.colostate.csedu.db.entity.Resource
 import edu.colostate.csedu.db.entity.Student
 
 
@@ -47,8 +48,8 @@ interface Students {
 
 
 interface Resources {
-   // fun getResource(id:String) : Resource
- //   fun getAllResources() : List<Resource>
+    fun getAll(): List<Resource>
+    fun set(id: String, resource: Resource)
 }
 
 interface Outcomes {
