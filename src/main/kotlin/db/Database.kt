@@ -21,12 +21,9 @@ interface Database {
     var outcomes  : Outcomes
     var courses : Courses
 
-
 }
 
-interface Mapable {
-    fun toMap(): Map<String, Any>
-}
+
 
 interface Courses {
     fun getStudents(courseId:String) : List<Student>

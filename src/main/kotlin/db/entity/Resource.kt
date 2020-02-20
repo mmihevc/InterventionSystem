@@ -1,5 +1,5 @@
 package edu.colostate.csedu.db.entity
-import edu.colostate.csedu.db.Mapable
+
 import kotlinx.serialization.Serializable
 
 
@@ -8,15 +8,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Resource(var id: String ="", var name : String ="", var topic : String="",
                     var url: String="", var depth:Int =0,
-                    var mediaType : String = "static") : Mapable {
-
-    override fun toMap(): Map<String, Any> = mapOf(
-            "name" to name,
-            "topic" to topic,
-            "url" to url,
-            "depth" to depth,
-            "mediaType" to mediaType)
-}
+                    var mediaType : String = "static") : Mappable()
 
 //
 //
@@ -36,7 +28,7 @@ data class Resource(var id: String ="", var name : String ="", var topic : Strin
 //                    var mediaType : String = "static") {
 //
 //
-//    //todo - is there a better place to store the 'path' info?
+//
 //    fun buildStudentUrl(student: Student) = "${SETTINGS.HOST}/${student.courseId}/client/${student.id}/resource/$id"
 //
 //

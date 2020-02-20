@@ -1,6 +1,5 @@
 package edu.colostate.csedu.db.entity
 
-import edu.colostate.csedu.db.Mapable
 import kotlinx.serialization.Serializable
 
 
@@ -17,7 +16,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Student(var id: String ="", var canvasId:String = "", var csuid:String = "",
-                   var email:String="", var fname: String="", var lname:String="") : Mapable {
+                   var email:String="", var fname: String="", var lname:String="") : Mappable() {
 
     val outcomeMapping = mutableMapOf<String, StudentOutcome>()
 
@@ -25,37 +24,13 @@ data class Student(var id: String ="", var canvasId:String = "", var csuid:Strin
         outcomeMapping[result.outcomeId]?.history?.add(result)
     }
 
-    override fun toMap(): Map<String, Any> {
-        var map : MutableMap<String, Any>  = mutableMapOf(
-                "fname" to fname,
-                "lname" to lname,
-                "canvasId" to canvasId,
-                "id" to id,
-                "email" to email,
-                "csuid" to csuid)
-        val outcomes = mutableMapOf<String, Any>()
-        for(om in outcomeMapping) {
-            outcomes[om.key] = om.value.toMap()
-        }
-        map["outcomeMapping"] = outcomes
-        return map
-    }
+
 }
 
 @Serializable
 data class StudentOutcome(var score: Double = 0.0, var mastery: Double = 4.0,
                           var calculationMethod: String = OutcomeCalculationMethods.LATEST,
-                          var calculationInt: Int = 0) : Mapable {
-    val history = mutableListOf<OutcomeResult>()
-
-    override fun toMap() : Map<String, Any> = mutableMapOf(
-        "score" to score,
-        "mastery" to mastery,
-        "calculationMethod" to calculationMethod,
-        "calculationInt" to calculationInt,
-        "history" to history)
-
-}
+                          var calculationInt: Int = 0, val history:MutableList<OutcomeResult> = mutableListOf()) : Mappable()
 
 /*
     @Transient
