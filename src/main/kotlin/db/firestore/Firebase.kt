@@ -1,6 +1,7 @@
 package edu.colostate.csedu.db.firestore
 
 import com.google.auth.oauth2.GoogleCredentials
+import com.google.cloud.firestore.DocumentReference
 import com.google.cloud.firestore.DocumentSnapshot
 import com.google.cloud.firestore.Firestore
 import com.google.cloud.firestore.QueryDocumentSnapshot
@@ -32,6 +33,8 @@ class Firebase() : Database {
     override lateinit var resources: Resources
     override lateinit var outcomes: Outcomes
     override lateinit var courses: Courses
+    override lateinit var campaigns: Campaigns
+    override lateinit var clicks: Clicks
 
 
     /*
@@ -112,13 +115,17 @@ class Firebase() : Database {
         db.collection(collection).document(documentId).set(map).get()
     }
 
-    internal fun getDocument(documentId : String) : DocumentSnapshot {
-        val future = db.document(documentId).get()
+    internal fun addDocument(collection: String,map : Map<String, Any>)  = db.collection(collection).add(map).get()
+
+
+    internal fun getDocument(collection: String, documentId : String) : DocumentSnapshot? {
+        val future = db.collection(collection).document(documentId).get()
         val document = future.get()
         if (document.exists()) {
             return document
         }
-        throw Exception("Can't find the document: $documentId")
+        //throw Exception("Can't find the document: $documentId")
+        return null
     }
 
 
@@ -134,6 +141,9 @@ class Firebase() : Database {
         this.students = StudentsFb(this)
         this.outcomes = OutcomesFb(this)
         this.resources = ResourcesFb(this)
+        this.courses = CoursesFb(this)
+        this.campaigns = CampaignsFb(this)
+        this.clicks = ClicksFb(this)
 
     }
 

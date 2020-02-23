@@ -15,7 +15,7 @@ import kotlinx.serialization.Serializable
  * @version 202010
  */
 @Serializable
-data class Student(var id: String ="", var canvasId:String = "", var csuid:String = "",
+data class Student(var canvasId:String = "", var csuid:String = "",
                    var email:String="", var fname: String="", var lname:String="") : Mappable() {
 
     val outcomeMapping = mutableMapOf<String, StudentOutcome>()

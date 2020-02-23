@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class Resource(var id: String ="", var name : String ="", var topic : String="",
+data class Resource(var name : String ="", var topic : String="",
                     var url: String="", var depth:Int =0,
                     var mediaType : String = "static") : Mappable()
 

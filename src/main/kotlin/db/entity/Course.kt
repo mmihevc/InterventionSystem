@@ -2,6 +2,7 @@ package edu.colostate.csedu.db.entity
 
 import kotlinx.serialization.*
 
+
 /**
  * Basic course object in the database
  * Mainly links to other data, but keeps tracks of campaigns (interventions to students based on course push)
@@ -9,14 +10,17 @@ import kotlinx.serialization.*
  * (eventually) and grades.
  */
 @Serializable
-data class Course(val name:String = "", val term:String = "",
+data class Course(val name:String = "",
+                  val term:String = "",
                   val studentsInCourse:MutableMap<String, StudentInCourse> = mutableMapOf(),
-                  val campaigns: MutableSet<Campaign> = mutableSetOf()) {
+                  val campaignIds: MutableSet<String> = mutableSetOf()) : Mappable() {
 
 
-    fun addStudent(studentId:String) {
-        studentsInCourse[studentId] = StudentInCourse(studentId=studentId) // default to active
+    fun addStudent(studentId:String, section:String) {
+        studentsInCourse[studentId] = StudentInCourse(studentId=studentId,  // default to active
+                                                      section = section)
     }
+
 
     fun setStudentInactive(studentId: String) {
         studentsInCourse[studentId]?.status = StudentStates.INACTIVE
@@ -30,8 +34,7 @@ data class Course(val name:String = "", val term:String = "",
     // outcomes for the course (for tracking / data visualization purposes)
 }
 
-@Serializable
-data class Campaign(val name:String = "", val date:String = "")
+
 
     //val  links = mutableListOf<String>() // matches the clickId, to query the database with
 
@@ -48,19 +51,8 @@ object StudentStates {
 
 
 @Serializable
-data class StudentInCourse(val studentId:String ="", var status:String = StudentStates.ACTIVE) // not much for now, but room for later
+data class StudentInCourse(val studentId:String ="",
+                           val section:String = "",
+                           var status:String = StudentStates.ACTIVE) // not much for now, but room for later
 
 
-/**
- * Basic click tracker
- *
- * campaignRef - path to campaign, example courses/Fall19/campaigns/OutcomesAtFourWeeks
- */
-@Serializable
-data class Click(val id:String = "", val resourceId:String ="", val studentId:String = "",
-                 val campaignRef : String = "", val accessed:MutableList<String> = mutableListOf()) : Mappable() {
-
-    fun addClick() {
-        TODO("Not yet implemented")
-    }
-}

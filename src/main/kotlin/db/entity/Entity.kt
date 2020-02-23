@@ -22,9 +22,15 @@ open class Mappable {
     @Transient
     private val gson = Gson()
 
+    @Transient
+    var id: String = ""
+
     //convert a data class to a map
     fun toMap(): Map<String, Any> {
         val json = gson.toJson(this)
         return gson.fromJson(json, object : TypeToken<Map<String, Any>>() {}.type)
     }
+
+    fun toJson() : String = gson.toJson(this)
+
 }

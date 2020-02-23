@@ -19,7 +19,8 @@ private val logger = LoggerFactory.getLogger(InterventionController::class.java)
  * @version 1.0
  */
 object InterventionController {
-    /*
+    /* //TODO  - remove this file, leaving code to see how  it was done but may  be
+    //  easier to start from scratch  anyway
     fun massEmail(courseId : String, assessmentId: String, templateId: String): String { //http://localhost:8080/cs150Fall19/test-unit/email/unit1EmailBody
         val ls = DB.getAllStudents(courseId)
         val templator = EmailTemplates()

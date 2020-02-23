@@ -1,7 +1,9 @@
 package edu.colostate.csedu.controller
 
 import edu.colostate.csedu.DB
+import io.ktor.http.toHttpDateString
 import org.slf4j.LoggerFactory
+import java.time.LocalDateTime
 
 
 private val logger = LoggerFactory.getLogger(ClickThroughController.javaClass)
@@ -15,21 +17,22 @@ private val logger = LoggerFactory.getLogger(ClickThroughController.javaClass)
  *         lionelle@colostate.edu <br>
  *         Computer Science Department <br>
  *         Colorado State University
- * @version 1.0
+ * @version 202010
  */
 object ClickThroughController {
 
-    fun redirectRoute(courseId : String, clientId : String, resourceId : String) : String {
-//Test line: http://localhost:8080/cs150Fall19/client/1/resource/geeks-for-geeks-variables-lv1
-/*
-        val resource = DB.getResource(resourceId)
+    /**
+     * increments the click, and returns the URL to be redirected
+     */
+    fun redirectRoute(url: String) : String {
+        //test line http://localhost:8080/AxY6C
 
-        val student = DB.getStudent(courseId, clientId)
-
-        student.addClick(resource)
-
-        return resource.url
-*/
+        val click = DB.clicks.get(url)
+        click?.let {
+            click.accessed += LocalDateTime.now().toHttpDateString()
+            DB.clicks.set(click)
+            return click.url
+        }
         return ""
     }
 

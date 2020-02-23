@@ -50,27 +50,14 @@ fun Application.main() {
             }
         }
 
-        get("/{cid}/client/{id}/resource/{rid}") {
-            val client = call.parameters["id"] ?: ""
-            val resource = call.parameters["rid"] ?: ""
-            val courseId = call.parameters["cid"] ?: ""
-            val redirectUrl = ClickThroughController.redirectRoute(courseId, client, resource)
+        get("/{url}") {
+            val url = call.parameters["url"] ?: ""
+            val redirectUrl = ClickThroughController.redirectRoute(url)
             call.respondRedirect(redirectUrl, permanent = false)
         }
 
-        //http://localhost:8080/cs150Fall19/test-unit/email/unit1EmailBody
-        get("/{cid}/{assessmentId}/email/{tid}") {
-            val assessmentId = call.parameters["assessmentId"] ?: ""
-            val courseId = call.parameters["cid"] ?: ""
-            val templateId = call.parameters["tid"] ?: ""
-            val response = if (assessmentId.isEmpty() || courseId.isEmpty() || templateId.isEmpty()) {
-                "Invalid Info"
-            } else {
-       //         InterventionController.massEmail(courseId, assessmentId, templateId)
-                "hello"
-            }
-            call.respondText(response, contentType = ContentType.Application.Json)
-        }
+        // leaving code as a  reminder for future API methods
+        //call.respondText(response, contentType = ContentType.Application.Json)
 
 
     }

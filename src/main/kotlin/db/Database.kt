@@ -1,8 +1,6 @@
 package edu.colostate.csedu.db
 
-import edu.colostate.csedu.db.entity.Outcome
-import edu.colostate.csedu.db.entity.Resource
-import edu.colostate.csedu.db.entity.Student
+import edu.colostate.csedu.db.entity.*
 
 
 /**
@@ -20,23 +18,30 @@ interface Database {
     var resources : Resources
     var outcomes  : Outcomes
     var courses : Courses
+    var campaigns : Campaigns
+    var clicks : Clicks
 
 }
 
+interface Clicks {
+    fun set(click:Click)
+    fun get(clickId:String) : Click?
+}
 
+interface Campaigns {
+    fun get(campaignId:String) : Campaign?
+    fun add(campaign: Campaign) :  String
+
+}
 
 interface Courses {
-    fun getStudents(courseId:String) : List<Student>
-    fun addStudents(ids:List<String>)
-
-    //fun getResources(courseId:String) : List<Resource>
-    fun addResources(ids:List<String>)
+    fun get(courseId:String) : Course?
+    fun set(course:Course)
 
 }
 
 interface Students {
-    fun get(studentId:String) : Student
-    fun add()
+    fun get(studentId:String) : Student?
     fun getAll() : List<Student>
     fun set(id:String, student:Student)
 
@@ -51,6 +56,7 @@ interface Resources {
 
 interface Outcomes {
     fun getAll() : List<Outcome>
-    fun set(outcome:Outcome)
+    fun set(outcome: Outcome)
+    fun add(outcome: Outcome)
 
 }

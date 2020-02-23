@@ -10,6 +10,10 @@ class OutcomesFb(var db: Firebase) : Outcomes{
         db.setDocument(OUTCOMES_TABLE_NAME, outcome.id, outcome.toMap())
     }
 
+    override fun add(outcome: Outcome) {
+        db.addDocument(OUTCOMES_TABLE_NAME, outcome.toMap())
+    }
+
     override fun getAll(): List<Outcome> {
         val collection = db.getCollection(OUTCOMES_TABLE_NAME)
         val list = mutableListOf<Outcome>()
