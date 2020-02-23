@@ -26,6 +26,7 @@ object ClickThroughController {
      */
     fun redirectRoute(url: String) : String {
         //test line http://localhost:8080/AxY6C
+        //live test https://csuinterventions.appspot.com/AxY6C
 
         val click = DB.clicks.get(url)
         click?.let {
