@@ -16,12 +16,12 @@ import edu.colostate.csedu.db.entity.Student
  * @version 1.0
  */
 class ResourcesFb(val db: Firebase) : Resources {
-    override fun getAll(): List<Resource> {
+    override fun getAll(): Map<String, Resource> {
         val collection = db.getCollection(RESOURCES_TABLE_NAME)
-        val list = mutableListOf<Resource>()
+        val list = mutableMapOf<String, Resource>()
         for (document in collection) {
-            list += document.toObject(Resource::class.java)
-            list.last().id = document.id // actually matches canvasId, but just in case it doesn't
+            list[document.id] = document.toObject(Resource::class.java)
+            list[document.id]?.id = document.id
         }
         return list
     }

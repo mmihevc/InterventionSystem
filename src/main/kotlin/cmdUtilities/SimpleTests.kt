@@ -23,8 +23,8 @@ fun addClickDefaultTest() {
 
     val campaign = DB.campaigns.get("X4LROszpqYbGgeoNp82y") // test  campaign ID
 
-    for(resource in resources.filter { it.depth < 1 }) {
-        for(student in students) {
+    for(resource in resources.values.filter { it.depth < 1 }) {
+        for(student in students.values) {
             val click = Click(resourceId = resource.id,
                     studentId = student.id,
                     url = resource.url,

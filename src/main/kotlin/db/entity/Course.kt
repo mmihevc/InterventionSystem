@@ -13,7 +13,7 @@ import kotlinx.serialization.*
 data class Course(val name:String = "",
                   val term:String = "",
                   val studentsInCourse:MutableMap<String, StudentInCourse> = mutableMapOf(),
-                  val campaignIds: MutableSet<String> = mutableSetOf()) : Mappable() {
+                  val campaignIds: MutableList<String> = mutableListOf()) : Mappable() {
 
 
     fun addStudent(studentId:String, section:String) {

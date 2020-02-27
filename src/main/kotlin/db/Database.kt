@@ -42,20 +42,21 @@ interface Courses {
 
 interface Students {
     fun get(studentId:String) : Student?
-    fun getAll() : List<Student>
+    fun getAll() : Map<String, Student>
     fun set(id:String, student:Student)
+    fun add(student: Student) : String
 
 }
 
 
 
 interface Resources {
-    fun getAll(): List<Resource>
+    fun getAll(): Map<String, Resource>
     fun set(id: String, resource: Resource)
 }
 
 interface Outcomes {
-    fun getAll() : List<Outcome>
+    fun getAll() : Map<String, Outcome>
     fun set(outcome: Outcome)
     fun add(outcome: Outcome)
 

@@ -14,12 +14,12 @@ class OutcomesFb(var db: Firebase) : Outcomes{
         db.addDocument(OUTCOMES_TABLE_NAME, outcome.toMap())
     }
 
-    override fun getAll(): List<Outcome> {
+    override fun getAll(): Map<String, Outcome> {
         val collection = db.getCollection(OUTCOMES_TABLE_NAME)
-        val list = mutableListOf<Outcome>()
+        val list = mutableMapOf<String, Outcome>()
         for (document in collection ) {
-            list += document.toObject(Outcome::class.java)
-            list.last().id = document.id
+            list[document.id]  = document.toObject(Outcome::class.java)
+            list[document.id]?.id = document.id
         }
         return list
     }

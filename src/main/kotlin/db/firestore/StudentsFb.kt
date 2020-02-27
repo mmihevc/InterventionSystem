@@ -16,16 +16,19 @@ class StudentsFb(var db: Firebase) : Students {
     }
 
 
-    override fun getAll(): List<Student> {
+    override fun getAll(): Map<String, Student> {
         val collection = db.getCollection(STUDENTS_TABLE_NAME)
-        val list = mutableListOf<Student>()
+        val list = mutableMapOf<String, Student>()
         for (document in collection ) {
-            list += document.toObject(Student::class.java)
-            list.last().id = document.id // actually matches canvasId, but just in case it doesn't
+            list[document.id] = document.toObject(Student::class.java)
+            list[document.id]?.id = document.id
         }
         return list
     }
 
+    override fun add(student: Student) : String {
+       return db.addDocument(STUDENTS_TABLE_NAME, student.toMap()).id
+    }
     override fun set(id: String, student: Student) {
         db.setDocument(STUDENTS_TABLE_NAME, id, student.toMap())
     }
