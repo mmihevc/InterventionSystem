@@ -30,7 +30,7 @@ interface Clicks {
 
 interface Campaigns {
     fun get(campaignId:String) : Campaign?
-    fun add(campaign: Campaign) :  String
+    fun add(campaign: Campaign, course: Course) :  String
 
 }
 

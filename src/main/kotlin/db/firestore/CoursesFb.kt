@@ -33,6 +33,6 @@ class CoursesFb(val db: Firebase) : Courses {
 
 
     companion object {
-        private const val COURSES_TABLE_NAME = "courses"
+        internal const val COURSES_TABLE_NAME = "courses"
     }
 }
