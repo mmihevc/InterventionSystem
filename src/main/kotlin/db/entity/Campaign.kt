@@ -16,4 +16,14 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Campaign(var name:String = "",
                     var courseId:String = "",
-                    val studentIds:MutableList<String> = mutableListOf()) :  Mappable()
+                    var type: String = TYPE.OUTCOMES,
+                    val studentIds:MutableList<String> = mutableListOf()) :  Mappable() {
+
+    companion object {
+        object TYPE {
+            const val OUTCOMES = "OUTCOMES"
+        }
+    }
+
+}
+
