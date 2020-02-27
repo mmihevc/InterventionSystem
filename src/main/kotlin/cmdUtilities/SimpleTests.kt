@@ -10,6 +10,7 @@ import edu.colostate.csedu.db.entity.Outcome
  */
 fun main(args: Array<String>) {
 
+    val students = DB.students.getAll()
 
 
 
