@@ -26,37 +26,46 @@
 
 <h3 style="font-size:15px;">Here are some topics we encourage you to work on:</h3>
 
+{{!-- NS.CS.ALL.2020.JAVA.ARRAYS --}}
+{{!-- NS.CS.ALL.2020.JAVA.BRANCHING --}}
+{{!-- NS.CS.ALL.2020.JAVA.COMMON //strings  --}}
+{{!-- NS.CS.ALL.2020.JAVA.FUNDAMENTALS --}}
+{{!-- NS.CS.ALL.2020.JAVA.INPUT_OUTPUT --}}
+{{!-- NS.CS.ALL.2020.JAVA.METHODS --}}
+{{!-- NS.CS.ALL.2020.JAVA.RECURSION --}}
+{{!-- NS.CS.ALL.2020.JAVA.REPETITION //loops  --}}
+//We have to create more links for the topics covered, these are the tipic ID's 
 
-{{#if resources.[programming > fundamentals]}}
+{{#if resources.[programming > NS.CS.ALL.2020.JAVA.FUNDAMENTALS]}}
     <div id="branching">
         <h4>Fundamentals - Operations/Syntax</h4>
         <p>Here are some resources for you to look at fundamental java concepts.</p>
         <ul>
-            {{# each resources.[programming > fundamentals] }}
+            {{# each resources.[programming > NS.CS.ALL.2020.JAVA.FUNDAMENTALS] }}
                 <li><a href="{{this.student-url}}" title="{{this.name}}">{{this.name}}</a></li>
             {{/each}}
         </ul>
     </div>
 {{/if}}
 
-{{#if resources.[programming > branching]}}
+{{#if resources.[programming > NS.CS.ALL.2020.JAVA.BRANCHING]}}
     <div id="branching">
         <h4>Branching - If/Else</h4>
         <p>Here are some resources for you to look at branching and logic in another way.</p>
 <ul>
-{{# each resources.[programming > branching] }}
+{{# each resources.[programming > NS.CS.ALL.2020.JAVA.BRANCHING] }}
     <li><a href="{{this.student-url}}" title="{{this.name}}">{{this.name}}</a></li>
 {{/each}}
 </ul>
     </div>
 {{/if}}
 
-{{#if resources.[programming > methods]}}
+{{#if resources.[programming > NS.CS.ALL.2020.JAVA.METHODS]}}
     <div id="branching">
         <h4>Methods </h4>
         <p>Here are some resources for you to look at method.</p>
         <ul>
-            {{# each resources.[programming > methods] }}
+            {{# each resources.[programming > NS.CS.ALL.2020.JAVA.METHODS] }}
                 <li><a href="{{this.student-url}}" title="{{this.name}}">{{this.name}}</a></li>
             {{/each}}
         </ul>
